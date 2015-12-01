@@ -1,9 +1,11 @@
 import  java.util.HashMap;
+import java.util.HashSet;
+
 /**
  * Created by wyzhangdongsheng1 on 15-3-31.
  */
 public class _3_LongestSubStringWithoutRepeatingCharacters {
-    public int lengthOfLongestSubString(String s){
+    public int lengthOfLongestSubString1(String s){
         if(s.length() == 0) return 0;
         HashMap<Character, Integer> map = new HashMap<Character, Integer>();
         int max = 0;
@@ -17,7 +19,7 @@ public class _3_LongestSubStringWithoutRepeatingCharacters {
         }
         return max;
     }
-    public int lengthOfLongestSubString1(String s) {
+    public int lengthOfLongestSubString2(String s) {
         char[] ss = s.toCharArray();
         int[] loop1 = new int[ss.length + 1];
         int[] loop2 = new int[ss.length + 1];
@@ -44,8 +46,27 @@ public class _3_LongestSubStringWithoutRepeatingCharacters {
         return max;
     }
 
+    public int lengthOfLongestSubstring(String s) {
+        int i = 0, j = 0;
+        HashSet<Character> set = new HashSet<Character>();
+        int max = 0;
+        while(j < s.length()){
+            if(!set.contains(s.charAt(j))){
+                set.add(s.charAt(j++));
+                max = Math.max(max, set.size());
+            } else{
+                set.remove(s.charAt(i++));
+            }
+        }
+        return max;
+
+    }
+
     public static void main(String[] args) {
         _3_LongestSubStringWithoutRepeatingCharacters obj = new _3_LongestSubStringWithoutRepeatingCharacters();
-        System.out.println(obj.lengthOfLongestSubString("abba"));
+//        System.out.println(obj.lengthOfLongestSubString("abba"));
+        System.out.println(obj.lengthOfLongestSubstring("abcefqa"));
+
+
     }
 }
